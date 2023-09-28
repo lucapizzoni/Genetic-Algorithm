@@ -1,4 +1,4 @@
-import random
+from random import random
 
 class Individual():
   def __init__(self, rectangle_list, box_height, box_width, generation=0):
@@ -11,6 +11,7 @@ class Individual():
     
     # assign all rectancgles a random position
     for i in range(len(rectangle_list)):
+        import random
         x = random.randint(0, box_height-1)
         y = random.randint(0, box_width-1)
         self.chromosome.append([x,y])
@@ -20,10 +21,11 @@ class Individual():
   def make_feasible(self):
     # delet all rectangles that go beyond the borders of the box
     for r in range(len(self.chromosome)):
-      if (self.chromosome[r][0] + self.rectangle_list[r].height - 1) >= self.box_height:
-        self.chromosome[r] = []
-      elif (self.chromosome[r][1] + self.rectangle_list[r].width - 1) >= self.box_width:
-        self.chromosome[r] = []
+      if self.chromosome[r] != []: # if rectangle is used
+        if (self.chromosome[r][0] + self.rectangle_list[r].height - 1) >= self.box_height:
+          self.chromosome[r] = []
+        elif (self.chromosome[r][1] + self.rectangle_list[r].width - 1) >= self.box_width:
+          self.chromosome[r] = []
 
     #print('Chromosome before eliminating overlaps: ', self.chromosome)
     
@@ -108,3 +110,46 @@ class Individual():
     
     #print('Chromosome after eliminating overlaps: ', self.chromosome)
     #print(bo
+
+  def fitness(self):
+    used_space = 0
+    for r in range(len(self.chromosome)):
+      if self.chromosome[r] != []:
+        used_space += self.rectangle_list[r].height * self.rectangle_list[r].width
+    self.score = used_space
+  
+  def crossover(self, other_individual):
+    cutoff = round(random() * len(self.chromosome))
+    #print('Cutoff: ', cutoff)
+
+    child1_chromosome = other_individual.chromosome[0:cutoff] + self.chromosome[cutoff::]
+    child2_chromosome = self.chromosome[0:cutoff] + other_individual.chromosome[cutoff::]
+    
+    children = [Individual(self.rectangle_list, self.box_height, self.box_width, self.generation + 1),
+                Individual(self.rectangle_list, self.box_height, self.box_width, self.generation + 1)]
+    children[0].chromosome = child1_chromosome
+    children[1].chromosome = child2_chromosome
+
+    #print('Child 1 chromosome: ', children[0].chromosome)
+    #print('Child 2 chromosome: ', children[1].chromosome)
+
+    children[0].make_feasible()
+    children[1].make_feasible()
+    return children
+  
+  def mutation(self, rate):
+    #print('Before: ', self.chromosome)
+    for r in range(len(self.chromosome)):
+      if random() < rate:
+        self.chromosome[r] = [round(random() * (self.box_height-1)), round(random() * (self.box_width-1))]
+
+    '''
+    for r in range(len(self.chromosome)):
+      if random() < rate:
+        #import random
+        self.chromosome[r] = [random.randint(0, self.box_height-1), random.randint(0, self.box_width-1)]
+    '''
+    #print('After: ', self.chromosome)
+    self.make_feasible()
+
+    return self
