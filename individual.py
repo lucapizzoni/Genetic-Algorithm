@@ -140,8 +140,9 @@ class Individual():
   def mutation(self, rate):
     #print('Before: ', self.chromosome)
     for r in range(len(self.chromosome)):
-      if random() < rate:
-        self.chromosome[r] = [round(random() * (self.box_height-1)), round(random() * (self.box_width-1))]
+      if self.chromosome[r] == []:
+        if random() < rate:
+          self.chromosome[r] = [round(random() * (self.box_height-1)), round(random() * (self.box_width-1))]
 
     '''
     for r in range(len(self.chromosome)):

@@ -3,7 +3,7 @@ from individual import Individual
 from geneticAlgorithm import GeneticAlgorithm
 
 # create rectangles
-'''
+#'''
 rectangle_list = []
 rectangle_list.append(Rectangle(2, 1))
 rectangle_list.append(Rectangle(1, 2))
@@ -11,7 +11,7 @@ rectangle_list.append(Rectangle(1, 1))
 rectangle_list.append(Rectangle(1, 3))
 rectangle_list.append(Rectangle(1, 3))
 '''
-#'''
+'''
 rectangle_list = []
 rectangle_list.append(Rectangle(2, 12))
 rectangle_list.append(Rectangle(7, 12))
@@ -53,7 +53,7 @@ box_width = 60
 #i = Individual(rectangle_list, box_height, box_width)
 #print(i.chromosome)
 population_size = 64 # = len(rectangle_list) * 2
-mutation_probability = 0.02
+mutation_probability = 0.05
 number_of_generations = 100
 ga = GeneticAlgorithm(population_size)
 result = ga.solve(mutation_probability, number_of_generations, rectangle_list, box_height, box_width)
