@@ -120,10 +120,13 @@ class Individual():
   
   def crossover(self, other_individual):
     cutoff = round(random() * len(self.chromosome))
+    #cutoff  = 28
     #print('Cutoff: ', cutoff)
 
     child1_chromosome = other_individual.chromosome[0:cutoff] + self.chromosome[cutoff::]
     child2_chromosome = self.chromosome[0:cutoff] + other_individual.chromosome[cutoff::]
+    #child1_chromosome = other_individual.chromosome[0:cutoff1] + self.chromosome[cutoff1:cutoff2] + other_individual.chromosome[cutoff2::]
+    #child2_chromosome = self.chromosome[0:cutoff1] + other_individual.chromosome[cutoff1:cutoff2] + self.chromosome[cutoff2::]
     
     children = [Individual(self.rectangle_list, self.box_height, self.box_width, self.generation + 1),
                 Individual(self.rectangle_list, self.box_height, self.box_width, self.generation + 1)]
@@ -144,12 +147,6 @@ class Individual():
         if random() < rate:
           self.chromosome[r] = [round(random() * (self.box_height-1)), round(random() * (self.box_width-1))]
 
-    '''
-    for r in range(len(self.chromosome)):
-      if random() < rate:
-        #import random
-        self.chromosome[r] = [random.randint(0, self.box_height-1), random.randint(0, self.box_width-1)]
-    '''
     #print('After: ', self.chromosome)
     self.make_feasible()
 
