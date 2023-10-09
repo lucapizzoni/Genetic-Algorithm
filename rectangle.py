@@ -4,15 +4,6 @@ class Rectangle():
     self.width = width
 
 # create rectangles
-'''
-rectangle_list = []
-rectangle_list.append(Rectangle(2, 1))
-rectangle_list.append(Rectangle(1, 2))
-rectangle_list.append(Rectangle(1, 1))
-rectangle_list.append(Rectangle(1, 3))
-rectangle_list.append(Rectangle(1, 3))
-'''
-#'''
 rectangle_list = []
 rectangle_list.append(Rectangle(2, 12))
 rectangle_list.append(Rectangle(7, 12))
@@ -46,4 +37,3 @@ rectangle_list.append(Rectangle(6, 3))
 rectangle_list.append(Rectangle(10, 3))
 rectangle_list.append(Rectangle(6, 3))
 rectangle_list.append(Rectangle(10, 3))
-#'''
