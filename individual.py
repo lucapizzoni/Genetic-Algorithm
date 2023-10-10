@@ -61,9 +61,16 @@ class Individual():
                 multiple_overlaps = True
               other_rectangle = box[self.chromosome[r][0]+i][self.chromosome[r][1]+j]
 
-        # if not available
-        if available == False:
+        # if available
+        if available == True:
+          # iterate over all fields that rectangle needs
+            for i in range(self.rectangle_list[r].height):
+              for j in range(self.rectangle_list[r].width):
+                # write rectangle in box
+                box[self.chromosome[r][0]+i][self.chromosome[r][1]+j] = r
 
+        # if not available
+        else:
           # calculate size of current and other rectangle
           area_current = self.rectangle_list[r].height * self.rectangle_list[r].width # calculate area of current rectangle
           area_other = self.rectangle_list[other_rectangle].height * self.rectangle_list[other_rectangle].width # calculate area of other rectangle
@@ -88,14 +95,7 @@ class Individual():
           # if old rectangle bigger then new rectangle or there are multiple overlaps
           else:
             self.chromosome[r] = [] # otherwise eliminate the current rectangle
-        
-        # if available
-        else:
-            # iterate over all fields that rectangle needs
-            for i in range(self.rectangle_list[r].height):
-              for j in range(self.rectangle_list[r].width):
-                # write rectangle in box
-                box[self.chromosome[r][0]+i][self.chromosome[r][1]+j] = r
+            
 
   # calculate fitness of an individual (score is the space of the box that is occupied by rectangles)
   def fitness(self):
